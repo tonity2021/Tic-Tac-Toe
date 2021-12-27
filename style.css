@@ -1,0 +1,16 @@
+/* .game-container {
+}  */
+
+.grid {
+  display: table;
+  border-spacing: 5px;
+}
+.row {
+  display: table-row;
+}
+.cell {
+  background: lightblue;
+  display: table-cell;
+  padding: 60px;
+  border: 2px solid rgb(16, 255, 255);
+}
