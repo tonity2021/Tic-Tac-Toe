@@ -1,4 +1,5 @@
 /* .game-container {
+  
 }  */
 
 .grid {
@@ -13,4 +14,9 @@
   display: table-cell;
   padding: 60px;
   border: 2px solid rgb(16, 255, 255);
+  font-size: 50px;
+}
+
+.currentPlay {
+    background-color: darkmagenta;
 }

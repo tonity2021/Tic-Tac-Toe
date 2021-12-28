@@ -1,70 +1,112 @@
-//TTT game board
-const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+//do Readme
+// const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+//keeps track of current player
+const gameResults = document.querySelector("#game-results");
+//clears the cells and resets the game board
+const resetGameButton = document.querySelector(".reset-game-button");
 
-const startGame = document.querySelector(".start-game-button");
-const currentPlayer = "X";
+//set the clear board and win game status to false while game is being played
+let clearsGameBoard = false;
+let winsGameStatus = false;
 
-//make grid clickable
-let cells = Array.from(document.querySelectorAll(".cell"));
-for (let i = 0; i < cells.length; i++) {
-    //add click function on all cells
-    cells[i].addEventListener("click", function () {
-        console.log("you clicked region number " + i);
-        console.log(i);
-    });
-}
+//start with player one
+const playerOne = "X";
+const playerTwo = "O";
+// const currentPlayer = "";
 
-//winning array combinations
+//wnning player combinations
 const winningCombos = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
 ];
 
-//player turn method
-// playerTurn = () => {
+//turn HTML array-like node list into an array
+let cells = Array.from(document.querySelectorAll(".cell"));
 
-// playerTurn();
-
-//valid move method
-const validMove = () => {
-    board.forEach((space) => {
-        if (space === "") {
-            // console.log("true");
-            console.log(space);
-        } else {
-            // console.log("false");
-        }
+//player turns
+const playerTurn = () => {
+  let playerOneTurn = true;
+  let playerTwoTurn = false;
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener("click", () => {
+      if (cells[i].innerText === "" && playerOneTurn === true) {
+        cells[i].innerText = playerOne;
+        playerTwoTurn = true;
+        playerOneTurn = false;
+      } else if (cells[i].innerText === "" && playerTwoTurn === true) {
+        cells[i].innerText = playerTwo;
+        playerTwoTurn = false;
+        playerOneTurn = true;
+        wonGame();
+        clearBoard();
+      }
     });
+  }
+};
+playerTurn();
+
+const wonGame = () => {
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener("click", () => {
+      if (
+        cells[0].innerText === playerOne &&
+        cells[1].innerText === playerOne &&
+        cells[2].innerText === playerOne
+      ) {
+        gameResults.innerHTML = "player 1 won";
+
+       } else if (
+          cells[0].innerText === playerTwo &&
+          cells[1].innerText === playerTwo &&
+          cells[2].innerText === playerTwo
+        ) {
+        gameResults.innerHTML = "player 2 won";
+           winsGameStatus = true; 
+        
+      }
+    });
+  }
 };
 
-validMove();
-
-
-
-//start a new game method
-startGame.addEventListener("click", (e) => {
-    console.log("clicked!");
-    e.preventDefault;
-    // newGame();
-});
-
-//won game method
-winningGameCombos = () => {
-    if (gameBoard[0] === "X" && gameBoard[1] === "X" && gameBoard[2] === "X") {
-        console.log("player X has won");
-    } else if (
-        gameBoard[0] === "Y" &&
-        gameBoard[1] === "Y" &&
-        gameBoard[2] === "Y"
-    ) {
-        console.log("player Y has won");
-    } else {
-        console.log("It's a draw");
-    }
+// clear board function
+const clearBoard = () => {
+  resetGameButton.addEventListener("click", () => {
+    cells.forEach(cell => cell.innerText = " ");
+    clearsGameBoard = true;
+  });
 };
+
+
+//winning array combinations done
+
+//not using code below anymore:
+
+//current player turn
+// let currentPlayer = "";
+// const currentTurn = () => {
+//     for (let i = 0; i < cells.length; i++) {
+//         if (cells[i].innerText === "X") {
+//             currentPlayer = playerOne;
+//             console.log(currentPlayer);
+//         } else {
+//             playerTwo
+//         }
+//     }
+// };
+// currentPlay();
+
+//not using valid move function due to removing "position taken" function
+//valid move
+// const validMove = () => {
+//     for(let i = 0; i < cells.length; i++){
+//     if(!positionTaken()) {
+        //previous position should already be occupied with an X
+//         cells[i].innerText === "O";
+//         }
+//     }
