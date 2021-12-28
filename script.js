@@ -1,4 +1,6 @@
 //do Readme
+//add a draw to game
+//reset game after a win
 // const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
 //keeps track of current player
 const gameResults = document.querySelector("#game-results");
@@ -8,6 +10,7 @@ const resetGameButton = document.querySelector(".reset-game-button");
 //set the clear board and win game status to false while game is being played
 let clearsGameBoard = false;
 let winsGameStatus = false;
+endCurrentGame = false;
 
 //start with player one
 const playerOne = "X";
@@ -39,12 +42,13 @@ const playerTurn = () => {
         cells[i].innerText = playerOne;
         playerTwoTurn = true;
         playerOneTurn = false;
-      } else if (cells[i].innerText === "" && playerTwoTurn === true) {
+      } if (cells[i].innerText === "" && playerTwoTurn === true) {
         cells[i].innerText = playerTwo;
         playerTwoTurn = false;
         playerOneTurn = true;
         wonGame();
-        clearBoard();
+        clearBoard ();
+        endGame();
       }
     });
   }
@@ -67,8 +71,8 @@ const wonGame = () => {
           cells[2].innerText === playerTwo
         ) {
         gameResults.innerHTML = "player 2 won";
-           winsGameStatus = true; 
-        
+        endGame();
+           winsGameStatus = true;         
       }
     });
   }
@@ -78,35 +82,14 @@ const wonGame = () => {
 const clearBoard = () => {
   resetGameButton.addEventListener("click", () => {
     cells.forEach(cell => cell.innerText = " ");
+    gameResults.innerHTML = "";
     clearsGameBoard = true;
   });
 };
 
-
-//winning array combinations done
-
-//not using code below anymore:
-
-//current player turn
-// let currentPlayer = "";
-// const currentTurn = () => {
-//     for (let i = 0; i < cells.length; i++) {
-//         if (cells[i].innerText === "X") {
-//             currentPlayer = playerOne;
-//             console.log(currentPlayer);
-//         } else {
-//             playerTwo
-//         }
-//     }
-// };
-// currentPlay();
-
-//not using valid move function due to removing "position taken" function
-//valid move
-// const validMove = () => {
-//     for(let i = 0; i < cells.length; i++){
-//     if(!positionTaken()) {
-        //previous position should already be occupied with an X
-//         cells[i].innerText === "O";
-//         }
-//     }
+//ends a winning game or draw
+const endGame = () => {
+  if(wonGame()) {
+  cells.forEach(cell => cell.innerText = " ");
+  }
+}
