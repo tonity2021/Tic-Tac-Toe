@@ -122,7 +122,7 @@ const wonGame = () => {
           winsGameStatus = true;
           endGame();
         }
-        if (!playerComboWins) {
+        else if (!playerComboWins) { //********** */
           gameResults.innerHTML = "It's a draw";
         }
       });
@@ -130,6 +130,10 @@ const wonGame = () => {
   }
 };
 
+//second set of winning conditions
+// 6 7 8 bottom, horizontal row
+// 0 4 8 diagonal
+// need 2 5 8 down
 const wonGame2 = () => {
   for (let i = 0; i < cells.length; i++) {
     cells[i].addEventListener("click", () => {
