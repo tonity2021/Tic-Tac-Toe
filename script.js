@@ -1,4 +1,3 @@
-
 //reveals the winner
 const gameResults = document.querySelector("#game-results");
 //clears the cells and resets the game board
@@ -10,6 +9,8 @@ let winsGameStatus = false;
 
 //keeps track of a draw
 let counter = 0;
+
+//sets end game status to false while game is being played
 let endsGame = false;
 
 const playerOne = "X";
@@ -28,7 +29,7 @@ const playerTurn = () => {
         cells[i].innerText = playerOne;
         playerTwoTurn = true;
         playerOneTurn = false;
-        counter ++;
+        counter++;
       }
       if (cells[i].innerText === "" && playerTwoTurn === true) {
         cells[i].innerText = playerTwo;
@@ -36,8 +37,8 @@ const playerTurn = () => {
         playerOneTurn = true;
         wonGame();
         wonGame2();
-        if(counter >= 9) {
-          console.log("It's a draw");
+        if (counter >= 9) {
+          alert("It's a draw");
           endGame();
         }
       }
@@ -63,7 +64,6 @@ const winningCombos = [
 //horizontal: 0 1 2/ 3 4 5
 //down: 0 3 6/1 4 7/
 //diagonal: 2 4 6
-
 
 const wonGame = () => {
   for (let i = 0; i < cells.length; i++) {
@@ -128,7 +128,7 @@ const wonGame = () => {
   }
 };
 
-//second set of winning conditions foro wonGame2
+//second set of winning conditions for wonGame2
 // 6 7 8 bottom, horizontal row
 // 0 4 8 diagonal
 // need 2 5 8 down
