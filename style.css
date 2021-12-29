@@ -3,7 +3,7 @@ body {
 }
 h1 {
   text-align: center;
-  font-family: 'Moo Lah Lah', cursive;
+  font-family: 'Bungee Shade', cursive;
   font-size: 55px;
 }
 
@@ -15,7 +15,7 @@ button {
 
 #game-results {
   text-align: center;
-  font-family: 'Moo Lah Lah', cursive;
+  font-family: 'Bungee Shade', cursive;
   font-size: 50px;
 }
 .game-container {
@@ -39,7 +39,7 @@ button {
   padding: 60px;
   border: 3px solid #000000;
   font-size: 50px;
-  font-family: 'Moo Lah Lah', cursive;
+  font-family: 'Bungee Shade', cursive;
 }
 
 .currentPlay {

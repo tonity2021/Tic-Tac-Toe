@@ -1,4 +1,3 @@
-//do Readme
 
 //reveals the winner
 const gameResults = document.querySelector("#game-results");
@@ -122,7 +121,7 @@ const wonGame = () => {
           winsGameStatus = true;
           endGame();
         }
-        else if (!playerComboWins) { //********** */
+        else if (!playerComboWins) { 
           gameResults.innerHTML = "It's a draw";
         }
       });
