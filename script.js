@@ -2,8 +2,6 @@
 //add a draw to game?
 //reset game after a win
 
-const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-
 //reveals the winner
 const gameResults = document.querySelector("#game-results");
 //clears the cells and resets the game board
@@ -14,7 +12,6 @@ let clearsGameBoard = false;
 let winsGameStatus = false;
 endCurrentGame = false;
 
-//start with player one
 const playerOne = "X";
 const playerTwo = "O";
 
@@ -37,8 +34,9 @@ const playerTurn = () => {
         playerTwoTurn = false;
         playerOneTurn = true;
         wonGame();
+        wonGame2();
         clearBoard();
-        endGame();
+        // endGame();
       }
     });
   }
@@ -50,30 +48,34 @@ playerTurn();
 const winningCombos = [
   [0, 1, 2],
   [3, 4, 5],
-  [6, 7, 8], //need
+  [6, 7, 8], 
   [0, 3, 6],
   [1, 4, 7],
   [2, 5, 8],
-  [0, 4, 8], //need
+  [0, 4, 8], 
   [2, 4, 6],
 ];
-
 
 // won game
 // winning combos[0] =
 //horizontal: 0 1 2/ 3 4 5
-//down: 0 3 6/1 4 7/ 2 4 6
+//down: 0 3 6/1 4 7/ 
+//diagonal: 2 4 6
+// 
 
-wonGame = () => {
+//put combos below in wonGame 2 function
+// need 6 7 8 last row
+//need 0 4 8 diagonal
+// need 2 5 8 down
+
+const wonGame = () => {
   for (let i = 0; i < cells.length; i++) {
     for (let i = 0; i < winningCombos.length; i++) {
-      // console.log(winningCombos[0]);
+
       cells[i].addEventListener("click", () => {
-        // console.log(cells[i]);
-        // cells[i].innerText === playerOne
-        // &&
+     
         const playerComboWins = winningCombos[0];
-        // console.log(winningCombosZero);
+   
         if (playerComboWins
           && cells[0].innerText === playerOne &&
           cells[1].innerText === playerOne &&
@@ -94,13 +96,11 @@ wonGame = () => {
           ||
           playerComboWins && cells[2].innerText === playerOne &&
           cells[4].innerText === playerOne &&
-          cells[6].innerText === playerOne 
-          ) {  
-            // return true;
-          gameResults.innerHTML = "player 1 won";
-          // winsGameStatus = true;
+          cells[6].innerText === playerOne) 
+          { 
+            gameResults.innerHTML = "player 1 won";
 
-        } else if (playerComboWins
+          } if (playerComboWins
           && cells[0].innerText === playerTwo &&
           cells[1].innerText === playerTwo &&
           cells[2].innerText === playerTwo || 
@@ -120,22 +120,14 @@ wonGame = () => {
           ||
           playerComboWins && cells[2].innerText === playerTwo &&
           cells[4].innerText === playerTwo &&
-          cells[6].innerText === playerTwo 
-          ) {  
-            // return true;
-          gameResults.innerHTML = "player 2 won";
-          // winsGameStatus = true;
-          }
-
-
-
-
-
-
-        // } else {
-        //     console.log("It's a draw");
-        //   endGame();
-        // }
+          cells[6].innerText === playerTwo) {
+        
+            gameResults.innerHTML = "player 2 won";
+            winsGameStatus = true;
+        }        
+        if (!playerComboWins) {
+          gameResults.innerHTML = "draw";
+        } 
       });
     }
   }
@@ -143,33 +135,45 @@ wonGame = () => {
 
 
 
-// const wonGame = () => {
-//   for (let i = 0; i < cells.length; i++) {
-//     cells[i].addEventListener("click", () => {
-//       if (
-//         cells[0].innerText === playerOne &&
-//         cells[1].innerText === playerOne &&
-//         cells[2].innerText === playerOne
-//       ) {
-//         gameResults.innerHTML = "player 1 won";
-//       } else if (
-//         cells[0].innerText === playerTwo &&
-//         cells[1].innerText === playerTwo &&
-//         cells[2].innerText === playerTwo
-//       ) {
-//         gameResults.innerHTML = "player 2 won";
-//       } else 
-//       gameResults.innerHTML = "It's a draw!";
-//       {
+const wonGame2 = () => {
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener("click", () => {
+      if (
+        cells[0].innerText === playerOne &&
+        cells[4].innerText === playerOne &&
+        cells[8].innerText === playerOne    
+        ||   
+          cells[6].innerText === playerOne &&
+          cells[7].innerText === playerOne &&
+          cells[8].innerText === playerOne
+          ||
+          cells[2].innerText === playerOne &&
+          cells[5].innerText === playerOne &&
+          cells[8].innerText === playerOne 
+          ) {  
+            gameResults.innerHTML = "player 1 won";
 
-//         endGame();
-//         winsGameStatus = true;
-
-
-//       }
-//     });
-//   }
-// };
+          } else if (
+        cells[0].innerText === playerTwo &&
+        cells[4].innerText === playerTwo &&
+        cells[8].innerText === playerTwo 
+        ||
+     
+          cells[6].innerText === playerTwo &&
+          cells[7].innerText === playerTwo &&
+          cells[8].innerText === playerTwo
+          ||
+           cells[2].innerText === playerTwo &&
+          cells[5].innerText === playerTwo &&
+          cells[8].innerText === playerTwo 
+          )   
+       {
+        gameResults.innerHTML = "player 2 won";
+        winsGameStatus = true;
+      } 
+    });
+  }
+};
 
 // clear board function
 const clearBoard = () => {
