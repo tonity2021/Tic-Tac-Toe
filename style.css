@@ -1,20 +1,29 @@
+body {
+  background-color: #FFFFFF;
+}
 h1 {
   text-align: center;
+  font-family: 'Moo Lah Lah', cursive;
+  font-size: 55px;
 }
 
 button {
   margin: 0 auto;
   display: block;
+  background-color: tan;
 }
 
 #game-results {
   text-align: center;
+  font-family: 'Moo Lah Lah', cursive;
+  font-size: 50px;
 }
 .game-container {
   display: flex;
   height: 100%;
   justify-content: center;
   align-items: center;
+  background-color: #000000;
 }
 
 .grid {
@@ -25,11 +34,12 @@ button {
   display: table-row;
 }
 .cell {
-  background: lightblue;
+  background: #FFFFFF;
   display: table-cell;
   padding: 60px;
-  border: 2px solid rgb(16, 255, 255);
+  border: 3px solid #000000;
   font-size: 50px;
+  font-family: 'Moo Lah Lah', cursive;
 }
 
 .currentPlay {
