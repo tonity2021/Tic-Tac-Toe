@@ -1,8 +1,10 @@
 //do Readme
-//add a draw to game
+//add a draw to game?
 //reset game after a win
-// const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-//keeps track of current player
+
+const gameBoard = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
+
+//reveals the winner
 const gameResults = document.querySelector("#game-results");
 //clears the cells and resets the game board
 const resetGameButton = document.querySelector(".reset-game-button");
@@ -15,19 +17,6 @@ endCurrentGame = false;
 //start with player one
 const playerOne = "X";
 const playerTwo = "O";
-// const currentPlayer = "";
-
-//wnning player combinations
-const winningCombos = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
-];
 
 //turn HTML array-like node list into an array
 let cells = Array.from(document.querySelectorAll(".cell"));
@@ -42,12 +31,13 @@ const playerTurn = () => {
         cells[i].innerText = playerOne;
         playerTwoTurn = true;
         playerOneTurn = false;
-      } if (cells[i].innerText === "" && playerTwoTurn === true) {
+      }
+      if (cells[i].innerText === "" && playerTwoTurn === true) {
         cells[i].innerText = playerTwo;
         playerTwoTurn = false;
         playerOneTurn = true;
         wonGame();
-        clearBoard ();
+        clearBoard();
         endGame();
       }
     });
@@ -55,41 +45,146 @@ const playerTurn = () => {
 };
 playerTurn();
 
-const wonGame = () => {
-  for (let i = 0; i < cells.length; i++) {
-    cells[i].addEventListener("click", () => {
-      if (
-        cells[0].innerText === playerOne &&
-        cells[1].innerText === playerOne &&
-        cells[2].innerText === playerOne
-      ) {
-        gameResults.innerHTML = "player 1 won";
 
-       } else if (
-          cells[0].innerText === playerTwo &&
+//wnning player combinations
+const winningCombos = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8], //need
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8], //need
+  [2, 4, 6],
+];
+
+
+// won game
+// winning combos[0] =
+//horizontal: 0 1 2/ 3 4 5
+//down: 0 3 6/1 4 7/ 2 4 6
+
+wonGame = () => {
+  for (let i = 0; i < cells.length; i++) {
+    for (let i = 0; i < winningCombos.length; i++) {
+      // console.log(winningCombos[0]);
+      cells[i].addEventListener("click", () => {
+        // console.log(cells[i]);
+        // cells[i].innerText === playerOne
+        // &&
+        const playerComboWins = winningCombos[0];
+        // console.log(winningCombosZero);
+        if (playerComboWins
+          && cells[0].innerText === playerOne &&
+          cells[1].innerText === playerOne &&
+          cells[2].innerText === playerOne || 
+          
+          playerComboWins && cells[3].innerText === playerOne &&
+          cells[4].innerText === playerOne &&
+          cells[5].innerText === playerOne || 
+          
+          playerComboWins && cells[0].innerText === playerOne &&
+          cells[3].innerText === playerOne &&
+          cells[6].innerText === playerOne
+          
+          || 
+          playerComboWins && cells[1].innerText === playerOne &&
+          cells[4].innerText === playerOne &&
+          cells[7].innerText === playerOne 
+          ||
+          playerComboWins && cells[2].innerText === playerOne &&
+          cells[4].innerText === playerOne &&
+          cells[6].innerText === playerOne 
+          ) {  
+            // return true;
+          gameResults.innerHTML = "player 1 won";
+          // winsGameStatus = true;
+
+        } else if (playerComboWins
+          && cells[0].innerText === playerTwo &&
           cells[1].innerText === playerTwo &&
-          cells[2].innerText === playerTwo
-        ) {
-        gameResults.innerHTML = "player 2 won";
-        endGame();
-           winsGameStatus = true;         
-      }
-    });
+          cells[2].innerText === playerTwo || 
+          
+          playerComboWins && cells[3].innerText === playerTwo &&
+          cells[4].innerText === playerTwo &&
+          cells[5].innerText === playerTwo || 
+          
+          playerComboWins && cells[0].innerText === playerTwo &&
+          cells[3].innerText === playerTwo &&
+          cells[6].innerText === playerTwo
+          
+          || 
+          playerComboWins && cells[1].innerText === playerTwo &&
+          cells[4].innerText === playerTwo &&
+          cells[7].innerText === playerTwo 
+          ||
+          playerComboWins && cells[2].innerText === playerTwo &&
+          cells[4].innerText === playerTwo &&
+          cells[6].innerText === playerTwo 
+          ) {  
+            // return true;
+          gameResults.innerHTML = "player 2 won";
+          // winsGameStatus = true;
+          }
+
+
+
+
+
+
+        // } else {
+        //     console.log("It's a draw");
+        //   endGame();
+        // }
+      });
+    }
   }
 };
+
+
+
+// const wonGame = () => {
+//   for (let i = 0; i < cells.length; i++) {
+//     cells[i].addEventListener("click", () => {
+//       if (
+//         cells[0].innerText === playerOne &&
+//         cells[1].innerText === playerOne &&
+//         cells[2].innerText === playerOne
+//       ) {
+//         gameResults.innerHTML = "player 1 won";
+//       } else if (
+//         cells[0].innerText === playerTwo &&
+//         cells[1].innerText === playerTwo &&
+//         cells[2].innerText === playerTwo
+//       ) {
+//         gameResults.innerHTML = "player 2 won";
+//       } else 
+//       gameResults.innerHTML = "It's a draw!";
+//       {
+
+//         endGame();
+//         winsGameStatus = true;
+
+
+//       }
+//     });
+//   }
+// };
 
 // clear board function
 const clearBoard = () => {
   resetGameButton.addEventListener("click", () => {
-    cells.forEach(cell => cell.innerText = " ");
+    cells.forEach((cell) => (cell.innerText = " "));
     gameResults.innerHTML = "";
+
     clearsGameBoard = true;
   });
 };
 
 //ends a winning game or draw
 const endGame = () => {
-  if(wonGame()) {
-  cells.forEach(cell => cell.innerText = " ");
+  if (wonGame()) {
+    cells.forEach((cell) => (cell.innerText = " "));
+
   }
-}
+};
