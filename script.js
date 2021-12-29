@@ -7,7 +7,10 @@ const resetGameButton = document.querySelector(".reset-game-button");
 //set the clear board and win game status to false while game is being played
 let clearsGameBoard = false;
 let winsGameStatus = false;
-// let endGame = false;
+
+//keeps track of a draw
+let counter = 0;
+let endsGame = false;
 
 const playerOne = "X";
 const playerTwo = "O";
@@ -25,6 +28,7 @@ const playerTurn = () => {
         cells[i].innerText = playerOne;
         playerTwoTurn = true;
         playerOneTurn = false;
+        counter ++;
       }
       if (cells[i].innerText === "" && playerTwoTurn === true) {
         cells[i].innerText = playerTwo;
@@ -32,7 +36,10 @@ const playerTurn = () => {
         playerOneTurn = true;
         wonGame();
         wonGame2();
-        winsGameStatus = true;
+        if(counter >= 9) {
+          console.log("It's a draw");
+          endGame();
+        }
       }
     });
   }
@@ -51,17 +58,12 @@ const winningCombos = [
   [2, 4, 6],
 ];
 
-// won game
+// wonGame function
 // winningCombos[0] =
 //horizontal: 0 1 2/ 3 4 5
 //down: 0 3 6/1 4 7/
 //diagonal: 2 4 6
-//
 
-//put combos below in wonGame 2 function
-// need 6 7 8 last row
-//need 0 4 8 diagonal
-// need 2 5 8 down
 
 const wonGame = () => {
   for (let i = 0; i < cells.length; i++) {
@@ -121,18 +123,16 @@ const wonGame = () => {
           winsGameStatus = true;
           endGame();
         }
-        else if (!playerComboWins) { 
-          gameResults.innerHTML = "It's a draw";
-        }
       });
     }
   }
 };
 
-//second set of winning conditions
+//second set of winning conditions foro wonGame2
 // 6 7 8 bottom, horizontal row
 // 0 4 8 diagonal
 // need 2 5 8 down
+
 const wonGame2 = () => {
   for (let i = 0; i < cells.length; i++) {
     cells[i].addEventListener("click", () => {
@@ -181,4 +181,6 @@ clearBoard();
 //ends a winning game or draw
 const endGame = () => {
   cells.forEach((cell) => (cell.innerText = " "));
+  counter = 0;
+  endsGame = true;
 };
